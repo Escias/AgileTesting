@@ -29,7 +29,6 @@ public class HeroTest {
 	@Before
 	public void setUp() throws Exception {
 		hero = new Hero("Jaina Portvaillant");
-		enemy = new Enemy("Mob", 1);
 		System.out.println("Avant un test");
 	}
 
@@ -47,6 +46,13 @@ public class HeroTest {
 	@Test
 	public void testHeroHp() throws Exception {
 		assertThat(hero.getHp(), equalTo(20));
+	}
+
+	@Test
+	public void testHeroAtk(){
+		Enemy enemy = new Enemy("Mob", 1);
+		hero.attack(enemy);
+		assertThat(enemy.getHp(), lessThan(15));
 	}
 
 	@Test
