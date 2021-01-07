@@ -21,7 +21,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.*;
 
 public class HomepageSteps {
 
@@ -86,7 +85,7 @@ public class HomepageSteps {
 	public void j_appuie_sur_Commander() throws Throwable {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[text()='Commander']")).click();
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		for (String windowHandle : driver.getWindowHandles()) {
 			driver.switchTo().window(windowHandle);
 		}
@@ -230,6 +229,7 @@ public class HomepageSteps {
 		Thread.sleep(2500);
 		assertThat(driver.getCurrentUrl(), containsString("https://www.tesla.com/fr_FR/findus/list"));
 
+	}
 
 	@Then("^j'appuie sur \"([^\"]*)\"$")
 	public void j_appuie_sur(String arg1) throws Throwable {
@@ -256,7 +256,6 @@ public class HomepageSteps {
 		driver.findElement(By.xpath("//a[contains(text(), \"" + arg1 + "\")]")).click();
 		Thread.sleep(10000);
 	}
-
 
 	@Then("^la page doit contenir plus de \"([^\"]*)\" evenements$")
 	public void la_page_doit_contenir_plus_de_evenements(String arg1) throws Throwable {
@@ -301,6 +300,7 @@ public class HomepageSteps {
 		driver.findElement(By.xpath("//a[contains(text(), \"" + arg1 + "\")]")).click();
 		Thread.sleep(2000);
 	}
+
 
 
 	@After
