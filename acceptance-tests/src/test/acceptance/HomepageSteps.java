@@ -36,7 +36,12 @@ public class HomepageSteps {
 
 	@Given("^je suis sur la homepage$")
 	public void je_suis_sur_la_homepage() throws Throwable {
-		driver.get("https://www.meetup.com/fr-FR/");
+		driver.get("https://www.tesla.com/fr_fr/");
+	}
+
+	@Given("^Je suis sur la modelSpage$")
+	public void je_suis_sur_la_modelSpage() throws Throwable {
+		driver.get("https://www.tesla.com/fr_fr/models");
 	}
 
 	@Then("^le titre doit être \"([^\"]*)\"$")
