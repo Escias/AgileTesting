@@ -34,7 +34,7 @@ public class HomepageSteps {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 
-	// Page d'accueil
+	// Homepage
 	@Given("^je suis sur la homepage$")
 	public void je_suis_sur_la_homepage() throws Throwable {
 		driver.get("https://www.tesla.com/fr_fr/");
@@ -72,6 +72,37 @@ public class HomepageSteps {
 		driver.findElement(By.cssSelector(".tds-menu-header-main--cross_hatch")).click();
 		Thread.sleep(1000);
 		assertEquals(driver.findElement(By.xpath("//a[contains(text(), \"" + arg1 + "\")]")).getAttribute("innerHTML"), arg1);
+	}
+
+	// Configurateur
+	@Given("^je suis sur la page modelS$")
+	public void je_suis_sur_la_page_modelS() throws Throwable {
+		driver.get("https://www.tesla.com/fr_fr/models/");
+	}
+
+	@Then("^j'appuie sur Commander$")
+	public void j_appuie_sur_Commander() throws Throwable {
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//a[text()='Commander']")).click();
+		Thread.sleep(1000);
+		for (String windowHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(windowHandle);
+		}
+	}
+
+	@Then("^l'url de la page doit être \"([^\"]*)\"$")
+	public void l_url_de_la_page_doit_être(String arg1) throws Throwable {
+		for (String windowHandle : driver.getWindowHandles()) {
+			driver.switchTo().window(windowHandle);
+		}
+		assertEquals(driver.getCurrentUrl(), arg1);
+	}
+
+	@Then("^Le prix du LOA doit être de \"([^\"]*)\"$")
+	public void le_prix_du_LOA_doit_être_de(String arg1) throws Throwable {
+		assertEquals(driver.findElement(By.xpath("//p[@class='finance-item--price finance-item--price-before-savings']")), arg1);
+		Boolean lien1 = driver.findElements(By.xpath("//p[text() = \"" + arg1 + "\"]")).size() > 0;
+		assertThat(lien1, is(true));
 	}
 
 

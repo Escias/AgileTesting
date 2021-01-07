@@ -25,17 +25,17 @@ Feature: Fonctionnalités de ma page d'accueil
 		Given je suis sur la homepage
 		Then je choisi un element du menu-burger "<menu>"
 		Examples:
-		|menu |
+		|menu 				   |
 		|Véhicules disponibles |
 		|Véhicules d'occasion  |
 		|Reprise               |
 		|Cybertruck            |
 		|Roadster              |
-		|Énergie	    		|
+		|Énergie	    	   |
 		|Essais                |
 		#|Flottes & Entreprises |
-		|Nous trouver           |
-		|Événements             |
-		|Assistance             |
+		|Nous trouver          |
+		|Événements            |
+		|Assistance            |
 
 
