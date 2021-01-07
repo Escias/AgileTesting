@@ -40,12 +40,6 @@ public class HomepageSteps {
 		driver.get("https://www.tesla.com/fr_fr/");
 	}
 
-	@Given("^Je suis sur la modelSpage$")
-	public void je_suis_sur_la_modelSpage() throws Throwable {
-		driver.get("https://www.tesla.com/fr_fr/models");
-
-	}
-
 	@Then("^le titre doit être \"([^\"]*)\"$")
 	public void le_titre_doit_être(String arg1) throws Throwable {
 	    assertEquals(driver.getTitle(), arg1);
