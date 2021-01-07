@@ -21,6 +21,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 
 public class HomepageSteps {
 
@@ -85,7 +86,7 @@ public class HomepageSteps {
 	public void j_appuie_sur_Commander() throws Throwable {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[text()='Commander']")).click();
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		for (String windowHandle : driver.getWindowHandles()) {
 			driver.switchTo().window(windowHandle);
 		}
@@ -229,6 +230,76 @@ public class HomepageSteps {
 		Thread.sleep(2500);
 		assertThat(driver.getCurrentUrl(), containsString("https://www.tesla.com/fr_FR/findus/list"));
 
+
+	@Then("^j'appuie sur \"([^\"]*)\"$")
+	public void j_appuie_sur(String arg1) throws Throwable {
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector(".tds-menu-header-main--cross_hatch")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//a[contains(text(), \"" + arg1 + "\")]")).click();
+	}
+
+	@Given("^je suis sur la page event$")
+	public void je_suis_sur_la_page_event() throws Throwable {
+		driver.get("https://www.tesla.com/fr_FR/events");
+	}
+
+	@Then("^la page doit contenir \"([^\"]*)\" evenements$")
+	public void la_page_doit_contenir_evenements(String arg1) throws Throwable {
+		String count = Integer.toString(driver.findElements(By.xpath("//a[text()=\"Informations\"]")).size());
+		assertEquals(count, arg1);
+	}
+
+	@Then("^appuyer sur \"([^\"]*)\"$")
+	public void appuyer_sur(String arg1) throws Throwable {
+		Thread.sleep(10000);
+		driver.findElement(By.xpath("//a[contains(text(), \"" + arg1 + "\")]")).click();
+		Thread.sleep(10000);
+	}
+
+
+	@Then("^la page doit contenir plus de \"([^\"]*)\" evenements$")
+	public void la_page_doit_contenir_plus_de_evenements(String arg1) throws Throwable {
+		String count = Integer.toString(driver.findElements(By.xpath("//a[text()=\"Informations\"]")).size());
+		assertThat(count, greaterThan(arg1));
+	}
+
+	@Then("^je saisis le prénom \"([^\"]*)\"$")
+	public void je_saisis_le_prénom(String arg1) throws Throwable {
+		driver.findElement(By.xpath("//input[@id=\"edit-firstname-td\"]")).sendKeys(arg1);
+	}
+
+	@Then("^je saisis le nom \"([^\"]*)\"$")
+	public void je_saisis_le_nom(String arg1) throws Throwable {
+		driver.findElement(By.xpath("//input[@id=\"edit-lastname-td\"]")).sendKeys(arg1);
+	}
+
+	@Then("^je saisis le mail \"([^\"]*)\"$")
+	public void je_saisis_le_mail(String arg1) throws Throwable {
+		driver.findElement(By.xpath("//input[@id=\"edit-usermail-td\"]")).sendKeys(arg1);
+	}
+
+	@Then("^je saisis le téléphone \"([^\"]*)\"$")
+	public void je_saisis_le_téléphone(String arg1) throws Throwable {
+		driver.findElement(By.xpath("//input[@id=\"edit-phonenumber-td\"]")).sendKeys(arg1);
+	}
+
+	@Then("^je sélectionne la région \"([^\"]*)\"$")
+	public void je_sélectionne_la_région(String arg1) throws Throwable {
+		driver.findElement(By.xpath("//input[@id=\"edit-countries-td\"]")).click();
+		driver.findElement(By.xpath("//option[contains(text(), \"" + arg1 + "\")]")).click();
+	}
+
+	@Then("^je saisis le code postal \"([^\"]*)\"$")
+	public void je_saisis_le_code_postal(String arg1) throws Throwable {
+		driver.findElement(By.xpath("//input[@id=\"edit-zipcode-td\"]")).sendKeys(arg1);
+	}
+
+	@Then("^appuyer sur le bouton \"([^\"]*)\"$")
+	public void appuyer_sur_le_bouton(String arg1) throws Throwable {
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//a[contains(text(), \"" + arg1 + "\")]")).click();
+		Thread.sleep(2000);
 	}
 
 
