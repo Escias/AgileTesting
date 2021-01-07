@@ -34,9 +34,10 @@ public class HomepageSteps {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 
+	// Page d'accueil
 	@Given("^je suis sur la homepage$")
 	public void je_suis_sur_la_homepage() throws Throwable {
-		driver.get("https://www.meetup.com/fr-FR/");
+		driver.get("https://www.tesla.com/fr_fr/");
 	}
 
 	@Then("^le titre doit être \"([^\"]*)\"$")
@@ -51,6 +52,28 @@ public class HomepageSteps {
 		// By XPATH, si vous préférez...
 	    // assertEquals(driver.findElement(By.xpath("//meta[@name='description']")).getAttribute("content"), arg1);
 	}
+
+	@Then("^j'indique l'élément et le contenu \"([^\"]*)\" \"([^\"]*)\"$")
+	public void j_indique_l_élément_et_le_contenu(String arg1, String arg2) throws Throwable {
+		boolean check = arg2.contains("/fr_fr/");
+		String content;
+		if (check == true){
+			content = "https://www.tesla.com"+arg2;
+			assertEquals(driver.findElement(By.xpath("//"+arg1+"[contains(@href, \"" + arg2 + "\")]")).getAttribute("href"), content);
+		}else{
+			content = arg2;
+			assertEquals(driver.findElement(By.xpath("//"+arg1+"[contains(., \"" + arg2 + "\")]")).getAttribute("innerHTML"), content);
+		}
+	}
+
+	@Then("^je choisi un element du menu-burger \"([^\"]*)\"$")
+	public void je_choisi_un_element_du_menu_burger(String arg1) throws Throwable {
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector(".tds-menu-header-main--cross_hatch")).click();
+		Thread.sleep(1000);
+		assertEquals(driver.findElement(By.xpath("//a[contains(text(), \"" + arg1 + "\")]")).getAttribute("innerHTML"), arg1);
+	}
+
 
 	@After
 	public void afterScenario() {
