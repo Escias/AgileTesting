@@ -100,9 +100,9 @@ public class HomepageSteps {
 
 	@Then("^Le prix du LOA doit être de \"([^\"]*)\"$")
 	public void le_prix_du_LOA_doit_être_de(String arg1) throws Throwable {
-		assertEquals(driver.findElement(By.xpath("//p[@class='finance-item--price finance-item--price-before-savings']")), arg1);
-		Boolean lien1 = driver.findElements(By.xpath("//p[text() = \"" + arg1 + "\"]")).size() > 0;
-		assertThat(lien1, is(true));
+		String loa = driver.findElement(By.cssSelector(".finance-item--price")).getAttribute("innerHTML");
+		boolean check = loa.contains(arg1);
+		assertThat(check, is(true));
 	}
 
 
