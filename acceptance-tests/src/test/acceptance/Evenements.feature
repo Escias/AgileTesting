@@ -27,7 +27,12 @@ Feature: Fonctionnalités de la page models
 #    |prénom |nom  |mail           |téléphone  |region|postal|
 #    |first  |last |test@gmail.com |0606060606 |France|75017 |
 
-  Scenario: Vérification d'évenement du Royaume-uni
+#  Scenario: Vérification d'évenement du Royaume-uni
+#    Given je suis sur la page event
+#    Then je saisis sur le champ de text "Londres"
+#    And je verifie que le premier champ sois au "Royaume-Uni"
+
+  Scenario: Vérification de l'event japon et de la page inscription
     Given je suis sur la page event
-    Then je saisis sur le champ de text "Londres"
-    And je verifie que le premier champ sois au "Royaume-Uni"
+    Then je saisis sur le champ de text le "Japan"
+    And je cliquer sur le bouton information et je verifie que l'url est "https://auth.tesla.com/"

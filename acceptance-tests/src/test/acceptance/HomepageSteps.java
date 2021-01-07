@@ -320,7 +320,24 @@ public class HomepageSteps {
 		assertEquals(locationNoSpace, arg1);
 	}
 
+	@Then("^je saisis sur le champ de text le \"([^\"]*)\"$")
+	public void je_saisis_sur_le_champ_de_text_le(String arg1) throws Throwable {
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@id=\"edit-geoautocomplete\"]")).clear();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@id=\"edit-geoautocomplete\"]")).sendKeys(arg1);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@id=\"edit-geoautocomplete\"]")).sendKeys(Keys.RETURN);
+		Thread.sleep(1000);
+	}
 
+	@Then("^je cliquer sur le bouton information et je verifie que l'url est \"([^\"]*)\"$")
+	public void je_cliquer_sur_le_bouton_information_et_je_verifie_que_l_url_est(String arg1) throws Throwable {
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//h2//a[@href='/fr_FR/event/kawasaki']")).click();
+		Thread.sleep(1000);
+		assertThat(driver.getCurrentUrl(), containsString("https://auth.tesla.com/"));
+	}
 
 
 	@After
