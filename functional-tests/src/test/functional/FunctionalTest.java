@@ -1,6 +1,7 @@
 package test.functional;
 
 import java.util.concurrent.TimeUnit;
+import java.util.*;
 
 import org.junit.Test;
 import org.junit.After;
@@ -12,7 +13,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.By;
 
 import org.openqa.selenium.By;
 
@@ -28,6 +31,7 @@ public class FunctionalTest {
 	    	// Seems no more working in last Chrome versions
 		// driver.manage().window().maximize();
   		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.get("https://www.tesla.com/fr_FR/");
      }
 
     // Test de la Story #1-homepage (https://trello.com/c/WKTneu9o/1-homepage)
@@ -81,11 +85,9 @@ public class FunctionalTest {
         assertThat(lien6, is("https://www.tesla.com/fr_fr/charging"));
     }
 
-
-
     @Test
-    public void testBurgerMenu() throws Exception {
-        String Burger1 = driver.findElement(By.xpath("//"))
+    public void testBurger() throws Exception {
+        //nav role="navigation" id="block-hamburgerdesktop"
     }
 
     // Test de la Story n ...
