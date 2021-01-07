@@ -301,6 +301,26 @@ public class HomepageSteps {
 		Thread.sleep(2000);
 	}
 
+	@Then("^je saisis sur le champ de text \"([^\"]*)\"$")
+	public void je_saisis_sur_le_champ_de_text(String arg1) throws Throwable {
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@id=\"edit-geoautocomplete\"]")).clear();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@id=\"edit-geoautocomplete\"]")).sendKeys(arg1);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@id=\"edit-geoautocomplete\"]")).sendKeys(Keys.RETURN);
+		Thread.sleep(10000);
+
+	}
+
+	@Then("^je verifie que le premier champ sois au \"([^\"]*)\"$")
+	public void je_verifie_que_le_premier_champ_sois_au(String arg1) throws Throwable {
+		String location = driver.findElement(By.xpath("//div[@class=\"location-teaser\"]")).getAttribute("innerHTML");
+		String locationNoSpace = location.replaceAll("\\s", "");
+		assertEquals(locationNoSpace, arg1);
+	}
+
+
 
 
 	@After
