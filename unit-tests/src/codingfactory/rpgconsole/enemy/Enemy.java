@@ -25,6 +25,8 @@ public class Enemy {
         return this.hp;
     }
 
+    public Integer getLevel() { return this.level; }
+
     public void takeDamage(Integer damage){
         this.hp -= damage;
     }
