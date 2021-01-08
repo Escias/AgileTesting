@@ -285,7 +285,7 @@ public class HomepageSteps {
 
 	@Then("^je sélectionne la région \"([^\"]*)\"$")
 	public void je_sélectionne_la_région(String arg1) throws Throwable {
-		driver.findElement(By.xpath("//input[@id=\"edit-countries-td\"]")).click();
+		driver.findElement(By.id("edit-countries-td")).click();
 		driver.findElement(By.xpath("//option[contains(text(), \"" + arg1 + "\")]")).click();
 	}
 
@@ -294,11 +294,23 @@ public class HomepageSteps {
 		driver.findElement(By.xpath("//input[@id=\"edit-zipcode-td\"]")).sendKeys(arg1);
 	}
 
-	@Then("^appuyer sur le bouton \"([^\"]*)\"$")
-	public void appuyer_sur_le_bouton(String arg1) throws Throwable {
+	@Then("^appuyer sur le bouton news$")
+	public void appuyer_sur_le_bouton() throws Throwable {
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//a[contains(text(), \"" + arg1 + "\")]")).click();
+		driver.findElement(By.xpath("//span[@class=\"tds-label-title\"]")).click();
 		Thread.sleep(2000);
+	}
+
+	@Then("^appuyer sur le bouton suivant \"([^\"]*)\"$")
+	public void appuyer_sur_le_bouton_suivant(String arg1) throws Throwable {
+		Thread.sleep(3000);
+		driver.findElement(By.id("edit-submit-td-ajax")).click();
+		Thread.sleep(2000);
+	}
+
+	@Then("^vérifier que le message est \"([^\"]*)\"$")
+	public void vérifier_que_le_message_est(String arg1) throws Throwable {
+		assertEquals(driver.findElement(By.xpath("//li[@class=\"parsley-required\"]")).getText(), arg1);
 	}
 
 	@Then("^je saisis sur le champ de text \"([^\"]*)\"$")
@@ -310,7 +322,6 @@ public class HomepageSteps {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//input[@id=\"edit-geoautocomplete\"]")).sendKeys(Keys.RETURN);
 		Thread.sleep(10000);
-
 	}
 
 	@Then("^je verifie que le premier champ sois au \"([^\"]*)\"$")
@@ -339,6 +350,30 @@ public class HomepageSteps {
 		assertThat(driver.getCurrentUrl(), containsString("https://auth.tesla.com/"));
 	}
 
+	@Given("^je suis sur la page \"([^\"]*)\"$")
+	public void je_suis_sur_la_page(String arg1) throws Throwable {
+		driver.get("https://www.tesla.com/fr_fr/model3");
+	}
+
+
+	@Then("^la categorie \"([^\"]*)\" contient \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
+	public void la_categorie_contient(String category, String weight, String acceleration, String battery) throws Throwable {
+		Thread.sleep(1000);
+		WebElement tab = driver.findElement(By.cssSelector("li[data-title = 'caractéristiques']"));
+		tab.click();
+		WebElement command = driver.findElement(By.xpath("//a[text() = '"+category+"']"));
+		command.click();
+
+		String ActualWeight = driver.findElement(By.xpath("//section[contains(@class, 'tds-tab-panel--active')]//span[contains(., 'Poids')]/following-sibling::span")).getAttribute("innerHTML");
+		ActualWeight = ActualWeight.replace("&nbsp;", " ");
+		assertThat(ActualWeight, containsString(weight));
+		String ActualAcceleration = driver.findElement(By.xpath("//section[contains(@class, 'tds-tab-panel--active')]//span[contains(., 'Accélération')]/..")).getAttribute("innerHTML");
+		ActualAcceleration = ActualAcceleration.replace("&nbsp;", " ");
+		assertThat(ActualAcceleration, containsString(acceleration));
+		String ActualBattery = driver.findElement(By.xpath("//section[contains(@class, 'tds-tab-panel--active')]//span[contains(., 'Autonomie')]/following-sibling::span")).getAttribute("innerHTML");
+		ActualBattery = ActualBattery.replace("&nbsp;", " ");
+		assertThat(ActualBattery, containsString(battery));
+	}
 
 	@After
 	public void afterScenario() {
